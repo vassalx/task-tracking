@@ -28,7 +28,7 @@ exports.updateTask = (req, res) => {
         user_id: new_user_id
     }, {
         where: {
-            id: req.params.id,
+            id: req.body.id,
             user_id: req.body.decoded_id
         }
     }).then(task => {

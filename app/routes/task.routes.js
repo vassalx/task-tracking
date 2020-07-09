@@ -20,7 +20,7 @@ module.exports = function (app){
     )
 
     app.put(
-        "/api/task/:id",
+        "/api/task",
         [
             authJwt.verifyToken, 
             verifyTask.checkAssociatedUser,
