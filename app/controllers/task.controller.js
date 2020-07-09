@@ -8,7 +8,7 @@ exports.createTask = (req, res) => {
         title: req.body.title,
         description: req.body.description,
         status: req.body.status,
-        user_id: req.body.user_id
+        user_id: req.body.decoded_id
     }).then(task => {
         res.json({ message: "Task was created successfully!" });
     }).catch(err => {
@@ -24,7 +24,8 @@ exports.updateTask = (req, res) => {
         user_id: req.body.user_id
     }, {
         where: {
-            id: req.params.id
+            id: req.params.id,
+            user_id: req.body.decoded_id
         }
     }).then(task => {
         if (!task[0]) {
@@ -40,7 +41,8 @@ exports.updateTask = (req, res) => {
 exports.deleteTask = (req, res) => {
     Task.destroy({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            user_id: req.body.decoded_id
         }
     }).then(num => {
         if (!num) {

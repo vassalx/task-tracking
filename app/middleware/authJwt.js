@@ -18,7 +18,7 @@ verifyToken = (req, res, next) => {
         message: "Unauthorized!"
       });
     }
-    req.user_id = decoded.id;
+    req.body.decoded_id = decoded.id;
     next();
   });
 };

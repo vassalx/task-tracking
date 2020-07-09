@@ -13,8 +13,7 @@ module.exports = function (app){
     app.post(
         "/api/task",
         [
-            authJwt.verifyToken, 
-            verifyTask.checkAssociatedUser,
+            authJwt.verifyToken,
             verifyTask.checkTaskStatus
         ],
         controller.createTask

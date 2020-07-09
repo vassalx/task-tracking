@@ -11,13 +11,13 @@ module.exports = function (app) {
     });
 
     app.put(
-        "/api/user/:user_id",
+        "/api/user",
         [authJwt.verifyToken],
         controller.updateUser
     )
 
     app.delete(
-        "/api/user/:user_id",
+        "/api/user",
         [authJwt.verifyToken],
         controller.deleteUser
     )

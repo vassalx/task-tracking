@@ -9,14 +9,13 @@ exports.updateUser = (req, res) => {
     },
     {
         where: {
-            user_id: req.params.user_id
+            user_id: req.body.decoded_id
         }
     }
     ).then(user => {
         if (!user[0]) {
             return res.status(404).json({ message: "User Not found." });
         }
-        console.log(user);
 
         res.status(200).json({message:"User updated successfully!"})
     }).catch(err => {
@@ -27,7 +26,7 @@ exports.updateUser = (req, res) => {
 exports.deleteUser = (req, res) => {
     User.destroy({
         where: {
-            user_id: req.params.user_id
+            user_id: req.body.decoded_id
         }
     }).then(num => {
         if(!num){

@@ -22,7 +22,7 @@ describe("Task-tracker tests", () => {
                 first_name: randName,
                 last_name: randName,
                 email: randEmail,
-                password: "1234"
+                password: "123456"
             })
             .end((err, res) => {
                 expect(res).to.have.status(200);
@@ -36,7 +36,7 @@ describe("Task-tracker tests", () => {
             .post("/api/auth/signin")
             .send({
                 email: randName + "@gmail.com",
-                password: "1234"
+                password: "123456"
             })
             .end((err, res) => {
                 expect(res).to.have.status(200);
@@ -56,7 +56,7 @@ describe("Task-tracker tests", () => {
             .post("/api/auth/signin")
             .send({
                 email: randName + "@gmail.com",
-                password: "12345"
+                password: "1234567"
             })
             .end((err, res) => {
                 expect(res).to.have.status(401);
@@ -112,7 +112,7 @@ describe("Task-tracker tests", () => {
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.a("array");
-                expect(res.body).lengthOf(MAX_USERS)
+                expect(res.body).to.have.lengthOf.at.most(MAX_USERS)
             })
         chai
             .request(app)
@@ -122,7 +122,7 @@ describe("Task-tracker tests", () => {
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.a("array");
-                expect(res.body).lengthOf(MAX_USERS)
+                expect(res.body).to.have.lengthOf.at.most(MAX_USERS)
                 done();
             })
     })
