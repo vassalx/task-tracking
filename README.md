@@ -6,6 +6,9 @@ Back-end NodeJS application for task management.
 https://documenter.getpostman.com/view/7243126/T17KcRGL?version=latest
 
 ### To start app
+Run
+`npm install`
+and
 `npm start`
 
 ### To test app
