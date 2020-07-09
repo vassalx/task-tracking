@@ -15,7 +15,7 @@ checkTaskStatus = (req, res, next) => {
 checkAssociatedUser = (req, res, next) => {
     User.findOne({
         where: {
-            user_id: req.body.user_id
+            user_id: req.body.decoded_id
         }
     }).then(user => {
         if (!user) {

@@ -69,44 +69,32 @@ describe("Task-tracker tests", () => {
     it("should get user by id", done => {
         chai
             .request(app)
-            .get("/api/user/" + user.user_id)
+            .get("/api/user")
             .set("x-access-token", user.accessToken)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body.user_id).to.equals(user.user_id);
                 expect(res.body.password).to.be.undefined;
                 done();
-            })
-    })
+            });
+    });
 
-    it("should not get user (incorrect id)", done => {
+    it("should not get user (incorrect accessToken)", done => {
         chai
             .request(app)
-            .get("/api/user/0")
-            .set("x-access-token", user.accessToken)
+            .get("/api/user")
+            .set("x-access-token", "bruh")
             .end((err, res) => {
-                expect(res).to.have.status(404);
-                expect(res.body.message).to.equals("User Not found.");
+                expect(res).to.have.status(401);
+                expect(res.body.message).to.equals("Unauthorized!");
                 done();
-            })
-    })
-
-    it("should not get user (incorrect id)", done => {
-        chai
-            .request(app)
-            .get("/api/user/0")
-            .set("x-access-token", user.accessToken)
-            .end((err, res) => {
-                expect(res).to.have.status(404);
-                expect(res.body.message).to.equals("User Not found.");
-                done();
-            })
-    })
+            });
+    });
 
     it("should get users with pagination", done => {
         chai
             .request(app)
-            .get("/api/user/")
+            .get("/api/users/")
             .query({ page: 1 })
             .set("x-access-token", user.accessToken)
             .end((err, res) => {
@@ -116,7 +104,7 @@ describe("Task-tracker tests", () => {
             })
         chai
             .request(app)
-            .get("/api/user/")
+            .get("/api/users/")
             .query({ page: 2 })
             .set("x-access-token", user.accessToken)
             .end((err, res) => {
@@ -124,7 +112,7 @@ describe("Task-tracker tests", () => {
                 expect(res.body).to.be.a("array");
                 expect(res.body).to.have.lengthOf.at.most(MAX_USERS)
                 done();
-            })
-    })
+            });
+    });
 
 });

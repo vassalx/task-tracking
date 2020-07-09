@@ -23,13 +23,13 @@ module.exports = function (app) {
     )
     
     app.get(
-        "/api/user/:user_id",
+        "/api/user",
         [authJwt.verifyToken],
         controller.getUser
     );
 
     app.get(
-        "/api/user",
+        "/api/users",
         [authJwt.verifyToken],
         controller.getAllUsers
     )

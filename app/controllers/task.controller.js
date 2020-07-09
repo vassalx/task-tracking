@@ -17,11 +17,15 @@ exports.createTask = (req, res) => {
 }
 
 exports.updateTask = (req, res) => {
+    let new_user_id = req.body.user_id;
+    if(!new_user_id){
+        new_user_id = req.body.decoded_id;
+    }
     Task.update({
         title: req.body.title,
         description: req.body.description,
         status: req.body.status,
-        user_id: req.body.user_id
+        user_id: new_user_id
     }, {
         where: {
             id: req.params.id,
@@ -29,7 +33,7 @@ exports.updateTask = (req, res) => {
         }
     }).then(task => {
         if (!task[0]) {
-            return res.status(404).json({ message: "Task Not found." });
+            return res.status(404).json({ message: "Task Not found or does not belong to user." });
         }
 
         res.json({ message: "Task was updated successfully!" });
@@ -46,7 +50,7 @@ exports.deleteTask = (req, res) => {
         }
     }).then(num => {
         if (!num) {
-            return res.status(404).json({ message: "Task Not found." });
+            return res.status(404).json({ message: "Task Not found or does not belong to user." });
         }
 
         res.status(200).json({

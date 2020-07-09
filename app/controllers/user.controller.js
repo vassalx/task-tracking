@@ -44,7 +44,7 @@ exports.deleteUser = (req, res) => {
 exports.getUser = (req, res) => {
     User.findOne({
         where: {
-            user_id: req.params.user_id
+            user_id: req.body.decoded_id
         },
         attributes: {
             exclude:["password"]
