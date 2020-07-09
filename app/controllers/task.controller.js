@@ -62,12 +62,13 @@ exports.deleteTask = (req, res) => {
 }
 
 exports.getAllTasks = (req, res) => {
-    const filter = req.query.statusFilter;
+    const where = {};
+    if(req.query.statusFilter){
+        where.status = req.query.statusFilter;
+    }
     const order = (req.query.ordNewFirst) ? "ASC" : "DESC";
     Task.findAll({
-        where: {
-            status: filter,
-        },
+        where: where,
         include: [{
             model: User,
             attributes: { exclude: ["password"] },
